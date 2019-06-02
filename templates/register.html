@@ -9,6 +9,8 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <script src='forge/dist/forge.min.js'></script>
+
     <link href="../static/css/custom.css" rel="stylesheet">
     <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.ico'/>
 </head>
@@ -61,6 +63,28 @@
                                     <input type="password" name="confirm-password" id="confirm-password" tabindex="2"
                                            class="form-control" placeholder="Confirm Password">
                                 </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="pubKey" id="pubKey" tabindex="3"
+                                           class="form-control">
+                                </div>
+                                <script type="text/javascript">
+                                    document.addEventListener('DOMContentLoaded', function() { 
+                                        var rsa = forge.pki.rsa;
+                                        var password = 'Mai9ohgh6ahxee0jutheew0pungoozil';
+                                        var seed = new forge.util.ByteBuffer(password, 'utf8');
+                                        var keypair = rsa.generateKeyPair({seed: seed});
+                                        var pki = forge.pki
+                                        var pem = pki.publicKeyToPem(keypair.publicKey)
+                                        var publicKey = forge.pki.publicKeyFromPem(pem);
+                                        console.log(publicKey)
+                                        // rsa.generateKeyPair({bits: 2048, workers: 2}, function(err, keypair) {
+                                        //  // console.log(keypair.publicKey.digest().bytes())
+                                        //  var pki = forge.pki;
+                                        //  var pem = pki.publicKeyToPem(keypair.publicKey);
+                                        //  console.log(pem)
+                                        // });
+                                    });
+                                </script>
                                 <div class="form-group">
                                     <select size="0" name="algorythm">
                                         <option>Choose an algorythm:</option>
